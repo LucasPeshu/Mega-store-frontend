@@ -1,8 +1,19 @@
+import AppRoutes from './hocs/routes/routes'; 
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './store';
+import Layout from './hocs/layout/Layout';
+
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <Layout className='bg-gray-100 min-h-screen'>
+      <Provider store={store}>
+        <Router>
+          <AppRoutes />
+        </Router>
+      </Provider>
+    </Layout>
+    
   );
 }
 
