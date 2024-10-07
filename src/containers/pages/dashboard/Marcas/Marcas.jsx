@@ -10,7 +10,7 @@ const Marcas = ({get_marcas, marcas}) => {
   }, [get_marcas]);
 
   const onSubmitCreate = async () => {
-    const idUnico = Date.now(); // Generar un ID único basado en la fecha y hora actual
+    const idUnico = Date.now();
     const nuevaMarca = {
       nombre: `default${idUnico}`,
       descripcion: 'default',

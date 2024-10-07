@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { useEffect, useState } from 'react';
-import { get_marca_detail } from "../../redux/actions/marcas/marcas";
+import { get_marca_detail } from "../../../../redux/actions/marcas/marcas";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -92,6 +92,8 @@ function MarcaDetalle({ get_marca_detail, marca }) {
             Actualizar
           </button>
         </form>
+
+        
       </div>
       :
       <>Esta marca no existe o fue eliminada</>}
