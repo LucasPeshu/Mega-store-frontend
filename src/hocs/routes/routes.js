@@ -1,11 +1,14 @@
-import { Route, Routes } from 'react-router-dom';
-import Home from '../../containers/pages/Home';
-import Error404 from '../../containers/errors/Error404';
-import Marcas from '../../containers/pages/dashboard/Marcas/Marcas';
-import MarcaDetalle from '../../containers/pages/dashboard/Marcas/MarcaDetalle';
-import Productos from '../../containers/pages/dashboard/Productos/Productos';
-import Categorias from '../../containers/pages/dashboard/Categorias/Categorias';
-import Subcategorias from '../../containers/pages/dashboard/Subcategorias/Subcategorias';
+import { Route, Routes } from "react-router-dom";
+import Home from "../../containers/pages/Home";
+import Error404 from "../../containers/errors/Error404";
+import Marcas from "../../containers/pages/dashboard/Marcas/Marcas";
+import MarcaDetalle from "../../containers/pages/dashboard/Marcas/MarcaDetalle";
+import Productos from "../../containers/pages/dashboard/Productos/Productos";
+import ProductoDetalle from "../../containers/pages/dashboard/Productos/ProductoDetalle";
+import Categorias from "../../containers/pages/dashboard/Categorias/Categorias";
+import CategoriasDetalle from "../../containers/pages/dashboard/Categorias/CategoriasDetalle";
+import Subcategorias from "../../containers/pages/dashboard/Subcategorias/Subcategorias";
+import SubcategoriasDetalle from "../../containers/pages/dashboard/Subcategorias/SubcategoriasDetalle";
 
 const AppRoutes = () => {
   return (
@@ -15,10 +18,13 @@ const AppRoutes = () => {
       <Route path="/marcas" element={<Marcas />} />
       <Route path="/marcas/:id" element={<MarcaDetalle />} />
       <Route path="/productos" element={<Productos />} />
+      <Route path="/productos/:id" element={<ProductoDetalle />} />
       <Route path="/categorias" element={<Categorias />} />
+      <Route path="/categoria/:id" element={<CategoriasDetalle />} />
       <Route path="/subcategorias" element={<Subcategorias />} />
+      <Route path="/subcategoria/:id" element={<SubcategoriasDetalle />} />
     </Routes>
   );
-}
+};
 
 export default AppRoutes;

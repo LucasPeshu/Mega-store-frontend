@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { get_marcas } from '../../../../redux/actions/marcas/marcas';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
-const Marcas = ({get_marcas, marcas}) => {
+const Marcas = ({ get_marcas, marcas }) => {
   useEffect(() => {
     get_marcas();
   }, [get_marcas]);
@@ -30,24 +31,36 @@ const Marcas = ({get_marcas, marcas}) => {
   };
 
   return (
-    
-    <div className="p-4">
-      <div className='flex justify-between mb-4'>
-        <h1 className='font-bold text-4xl'>Marcas:</h1>
+    <div className="p-4 min-h-screen">
+      <div className="flex justify-between mb-4">
+        <h1 className="font-bold text-4xl">Marcas:</h1>
         <div className="flex gap-2">
-          <button 
-            type='submit'
+          <button
+            type="submit"
             onClick={onSubmitCreate}
-            className='inline-flex w-full justify-center rounded-md border border-transparent bg-sky-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 sm:text-sm'>Crear</button>
+            className="inline-flex w-full justify-center rounded-md border border-transparent bg-sky-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 sm:text-sm"
+          >
+            Crear
+          </button>
         </div>
       </div>
+      
       {marcas && marcas.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="w-full">
+          <div className="grid grid-cols-3 font-bold text-lg border-b-2 border-gray-200 pb-2 mb-2">
+            <span>Editar</span>
+            <span>Nombre</span>
+            <span>Descripción</span>
+          </div>
+          
           {marcas.map((marca) => (
-            <Link to={`/marcas/${marca.id}`} className="bg-white shadow-md rounded-lg p-4">
-                <h2 className="text-2xl font-bold text-gray-800">{marca.nombre}</h2>
-                <p className="text-gray-600">{marca.descripcion}</p>
-            </Link>
+            <div key={marca.id} className="grid grid-cols-3 items-center border-b border-gray-200 py-2">
+              <Link to={`/marcas/${marca.id}`} className="flex">
+                <PencilSquareIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" />
+              </Link>
+              <span className="text-gray-800">{marca.nombre}</span>
+              <span className="text-gray-600">{marca.descripcion}</span>
+            </div>
           ))}
         </div>
       ) : (
