@@ -50,10 +50,34 @@ const ProductoDetalle = ({
     }
   }, [producto]);
 
+  const onSubmitDelete = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:8080/api/subcategorias/eliminar/${id}`
+      );
+      window.location.reload(); // Recarga la página para reflejar el cambio
+    } catch (err) {
+      setErrorMessage("Error al eliminar la subcategoría.");
+      setShowModalError(true);
+    }
+  };
+
+  const onSubmitReactive = async () => {
+    try {
+      await axios.put(
+        `http://localhost:8080/api/subcategorias/reactivar/${id}`
+      );
+      window.location.reload(); // Recarga la página para reflejar el cambio
+    } catch (err) {
+      setErrorMessage("Error al reactivar la subcategoría.");
+      setShowModalError(true);
+    }
+  };
+
   const onSubmitUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/api/productos/editar/${id}`, {
+      await axios.put(`http://localhost:8080/api/productos/actualizar/${id}`, {
         nombre,
         descripcion,
         tamano,
