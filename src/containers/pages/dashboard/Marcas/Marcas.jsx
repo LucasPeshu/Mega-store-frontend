@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { get_marcas } from '../../../../redux/actions/marcas/marcas';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { get_marcas } from "../../../../redux/actions/marcas/marcas";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 
 const Marcas = ({ get_marcas, marcas }) => {
   useEffect(() => {
@@ -11,22 +11,25 @@ const Marcas = ({ get_marcas, marcas }) => {
   }, [get_marcas]);
 
   const onSubmitCreate = async () => {
-    const idUnico = Date.now();
     const nuevaMarca = {
-      nombre: `default${idUnico}`,
-      descripcion: 'default',
-      estaActivo: true
+      nombre: `Marca`,
+      descripcion: "default",
+      estaActivo: true,
     };
 
     try {
-      await axios.post('http://localhost:8080/marcas/registrar', nuevaMarca, {
-        headers: {
-          'Content-Type': 'application/json'
+      await axios.post(
+        "http://localhost:8080/api/marcas/registrar",
+        nuevaMarca,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
+      );
       get_marcas();
     } catch (err) {
-      console.error('Error al crear la marca:', err);
+      console.error("Error al crear la marca:", err);
     }
   };
 
@@ -44,7 +47,7 @@ const Marcas = ({ get_marcas, marcas }) => {
           </button>
         </div>
       </div>
-      
+
       {marcas && marcas.length > 0 ? (
         <div className="w-full">
           <div className="grid grid-cols-3 font-bold text-lg border-b-2 border-gray-200 pb-2 mb-2">
@@ -52,9 +55,12 @@ const Marcas = ({ get_marcas, marcas }) => {
             <span>Nombre</span>
             <span>Descripción</span>
           </div>
-          
+
           {marcas.map((marca) => (
-            <div key={marca.id} className="grid grid-cols-3 items-center border-b border-gray-200 py-2">
+            <div
+              key={marca.id}
+              className="grid grid-cols-3 items-center border-b border-gray-200 py-2"
+            >
               <Link to={`/marcas/${marca.id}`} className="flex">
                 <PencilSquareIcon className="h-6 w-6 text-gray-500 hover:text-gray-700" />
               </Link>

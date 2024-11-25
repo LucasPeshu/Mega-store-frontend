@@ -9,12 +9,12 @@ import {
 export const get_categorias = () => async (dispatch) => {
   const config = {
     headers: {
-      'accept': 'application/json'
-    }
+      accept: "application/json",
+    },
   };
 
   try {
-    const res = await axios.get('http://localhost:8080/categoria/listar')
+    const res = await axios.get("http://localhost:8080/api/categorias/listar");
     if (res.status === 200) {
       dispatch({
         type: GET_CATEGORIAS_SUCCES,
@@ -25,24 +25,25 @@ export const get_categorias = () => async (dispatch) => {
         type: GET_CATEGORIAS_FAIL,
       });
     }
-
   } catch (error) {
     dispatch({
       type: GET_CATEGORIAS_FAIL,
     });
   }
-}
-
+};
 
 export const get_categorias_detail = (id) => async (dispatch) => {
   const config = {
     headers: {
-        'Accept': 'application/json',
-    }
+      Accept: "application/json",
+    },
   };
 
   try {
-    const res = await axios.get(`http://localhost:8080/categoria/${id}`, config)
+    const res = await axios.get(
+      `http://localhost:8080/api/categorias/${id}`,
+      config
+    );
 
     if (res.status === 200) {
       dispatch({
@@ -54,10 +55,9 @@ export const get_categorias_detail = (id) => async (dispatch) => {
         type: GET_CATEGORIAS_DETAIL_FAIL,
       });
     }
-
   } catch (error) {
     dispatch({
       type: GET_CATEGORIAS_DETAIL_FAIL,
     });
   }
-}
+};

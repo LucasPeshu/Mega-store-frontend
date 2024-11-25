@@ -28,7 +28,7 @@ function CategoriaDetalle({ get_categorias_detail, categoria }) {
 
   const onSubmitDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/categoria/eliminar/${id}`);
+      await axios.delete(`http://localhost:8080/api/categorias/eliminar/${id}`);
       get_categorias_detail(id);
     } catch (err) {
       setErrorMessage("Error al eliminar la categoría.");
@@ -39,7 +39,7 @@ function CategoriaDetalle({ get_categorias_detail, categoria }) {
   const onSubmitUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/categoria/actualizar/${id}`, {
+      await axios.put(`http://localhost:8080/api/categorias/actualizar/${id}`, {
         nombre,
         descripcion,
       });

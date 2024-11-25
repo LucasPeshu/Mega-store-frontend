@@ -14,7 +14,7 @@ export const get_productos = () => async (dispatch) => {
   };
 
   try {
-    const res = await axios.get("http://localhost:8080/producto/listar");
+    const res = await axios.get("http://localhost:8080/api/productos/listar");
     if (res.status === 200) {
       dispatch({
         type: GET_PRODUCTOS_SUCCES,
@@ -41,7 +41,7 @@ export const get_productos_detail = (id) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `http://localhost:8080/producto/listar/${id}`,
+      `http://localhost:8080/api/productos/listar/${id}`,
       config
     );
 

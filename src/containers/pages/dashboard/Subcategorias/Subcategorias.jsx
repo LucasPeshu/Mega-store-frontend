@@ -26,11 +26,12 @@ const Subcategorias = ({ get_subcategorias, subcategorias }) => {
       nombre: nombreUnico,
       descripcion: "Descripción de subcategoría",
       estaActivo: true,
+      categoriaId: categoriaId,
     };
 
     try {
       await axios.post(
-        `http://localhost:8080/subcategoria/registrar/${categoriaId}`,
+        `http://localhost:8080/api/subcategorias/registrar`,
         nuevaSubcategoria,
         {
           headers: {

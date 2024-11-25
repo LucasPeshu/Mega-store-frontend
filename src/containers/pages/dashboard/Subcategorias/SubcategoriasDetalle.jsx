@@ -1,23 +1,35 @@
 import { connect } from "react-redux";
 import { useEffect, useState } from "react";
 import { get_subcategorias_detail } from "../../../../redux/actions/subcategorias/subcategorias";
+import { get_categorias } from "../../../../redux/actions/categorias/categorias";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-function SubcategoriaDetalle({ get_subcategorias_detail, subcategoria }) {
+function SubcategoriaDetalle({
+  get_subcategorias_detail,
+  subcategoria,
+  get_categorias,
+  categorias,
+}) {
   const params = useParams();
   const id = params.id;
 
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
   const [showModalError, setShowModalError] = useState(false);
   const [showModalSuccess, setShowModalSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
+    get_categorias();
+  }, [get_categorias]);
+
+  useEffect(() => {
     if (subcategoria) {
       setNombre(subcategoria.nombre);
       setDescripcion(subcategoria.descripcion);
+      setCategoriaSeleccionada(subcategoria.categoria?.id || "");
     }
   }, [subcategoria]);
 
@@ -27,10 +39,24 @@ function SubcategoriaDetalle({ get_subcategorias_detail, subcategoria }) {
 
   const onSubmitDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/subcategoria/eliminar/${id}`);
-      setShowModalSuccess(true);
+      await axios.delete(
+        `http://localhost:8080/api/subcategorias/eliminar/${id}`
+      );
+      window.location.reload(); // Recarga la página para reflejar el cambio
     } catch (err) {
       setErrorMessage("Error al eliminar la subcategoría.");
+      setShowModalError(true);
+    }
+  };
+
+  const onSubmitReactive = async () => {
+    try {
+      await axios.put(
+        `http://localhost:8080/api/subcategorias/reactivar/${id}`
+      );
+      window.location.reload(); // Recarga la página para reflejar el cambio
+    } catch (err) {
+      setErrorMessage("Error al reactivar la subcategoría.");
       setShowModalError(true);
     }
   };
@@ -38,10 +64,14 @@ function SubcategoriaDetalle({ get_subcategorias_detail, subcategoria }) {
   const onSubmitUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/subcategoria/actualizar/${id}`, {
-        nombre,
-        descripcion,
-      });
+      await axios.put(
+        `http://localhost:8080/api/subcategorias/actualizar/${id}`,
+        {
+          nombre,
+          descripcion,
+          categoriaId: categoriaSeleccionada,
+        }
+      );
       get_subcategorias_detail(id);
       setShowModalSuccess(true);
     } catch (err) {
@@ -53,6 +83,7 @@ function SubcategoriaDetalle({ get_subcategorias_detail, subcategoria }) {
   const onCancel = () => {
     setNombre(subcategoria.nombre);
     setDescripcion(subcategoria.descripcion);
+    setCategoriaSeleccionada(subcategoria.categoria?.id || "");
   };
 
   const closeModal = () => {
@@ -68,13 +99,23 @@ function SubcategoriaDetalle({ get_subcategorias_detail, subcategoria }) {
           <div className="flex justify-between">
             <div className="text-4xl font-bold">{subcategoria.nombre}</div>
             <div className="flex gap-2">
-              <button
-                type="submit"
-                onClick={onSubmitDelete}
-                className="inline-flex w-full justify-center rounded-md border border-transparent bg-rose-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 sm:text-sm"
-              >
-                <span>Eliminar</span>
-              </button>
+              {subcategoria.estaActivo ? (
+                <button
+                  type="submit"
+                  onClick={onSubmitDelete}
+                  className="inline-flex w-full justify-center rounded-md border border-transparent bg-rose-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 sm:text-sm"
+                >
+                  <span>Eliminar</span>
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  onClick={onSubmitReactive}
+                  className="inline-flex w-full justify-center rounded-md border border-transparent bg-green-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 sm:text-sm"
+                >
+                  <span>Mostrar</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -110,6 +151,31 @@ function SubcategoriaDetalle({ get_subcategorias_detail, subcategoria }) {
                 className=" p-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                 required
               />
+            </div>
+
+            <div className="mb-4">
+              <label
+                htmlFor="categoria"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Categoría
+              </label>
+              <select
+                id="categoria"
+                value={categoriaSeleccionada}
+                onChange={(e) => setCategoriaSeleccionada(e.target.value)}
+                className="p-4 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                required
+              >
+                <option value="" disabled>
+                  Selecciona una categoría
+                </option>
+                {categorias.map((categoria) => (
+                  <option key={categoria.id} value={categoria.id}>
+                    {categoria.nombre}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="flex justify-between gap-4">
@@ -169,8 +235,10 @@ function SubcategoriaDetalle({ get_subcategorias_detail, subcategoria }) {
 
 const mapStateToProps = (state) => ({
   subcategoria: state.subcategorias.subcategoria,
+  categorias: state.categorias.categorias,
 });
 
-export default connect(mapStateToProps, { get_subcategorias_detail })(
-  SubcategoriaDetalle
-);
+export default connect(mapStateToProps, {
+  get_subcategorias_detail,
+  get_categorias,
+})(SubcategoriaDetalle);

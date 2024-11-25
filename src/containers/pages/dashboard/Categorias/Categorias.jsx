@@ -30,7 +30,7 @@ const Categorias = ({ get_categorias, categorias }) => {
 
     try {
       await axios.post(
-        "http://localhost:8080/categoria/registrar",
+        "http://localhost:8080/api/categorias/registrar",
         nuevaCategoria,
         {
           headers: {

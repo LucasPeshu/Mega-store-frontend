@@ -53,7 +53,7 @@ const ProductoDetalle = ({
   const onSubmitUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8080/producto/editar/${id}`, {
+      await axios.put(`http://localhost:8080/api/productos/editar/${id}`, {
         nombre,
         descripcion,
         tamano,

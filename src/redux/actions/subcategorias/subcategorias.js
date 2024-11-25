@@ -14,7 +14,9 @@ export const get_subcategorias = () => async (dispatch) => {
   };
 
   try {
-    const res = await axios.get("http://localhost:8080/subcategoria/listar");
+    const res = await axios.get(
+      "http://localhost:8080/api/subcategorias/listar"
+    );
     if (res.status === 200) {
       dispatch({
         type: GET_SUBCATEGORIAS_SUCCES,
@@ -41,7 +43,7 @@ export const get_subcategorias_detail = (id) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `http://localhost:8080/subcategoria/buscar/${id}`,
+      `http://localhost:8080/api/subcategorias/buscar/${id}`,
       config
     );
 

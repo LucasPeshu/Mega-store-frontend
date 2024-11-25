@@ -9,12 +9,12 @@ import {
 export const get_marcas = () => async (dispatch) => {
   const config = {
     headers: {
-      'accept': 'application/json'
-    }
+      accept: "application/json",
+    },
   };
 
   try {
-    const res = await axios.get('http://localhost:8080/marcas/listar')
+    const res = await axios.get("http://localhost:8080/api/marcas/listar");
     if (res.status === 200) {
       dispatch({
         type: GET_MARCAS_SUCCES,
@@ -25,24 +25,25 @@ export const get_marcas = () => async (dispatch) => {
         type: GET_MARCAS_FAIL,
       });
     }
-
   } catch (error) {
     dispatch({
       type: GET_MARCAS_FAIL,
     });
   }
-}
-
+};
 
 export const get_marca_detail = (id) => async (dispatch) => {
   const config = {
     headers: {
-        'Accept': 'application/json',
-    }
+      Accept: "application/json",
+    },
   };
 
   try {
-    const res = await axios.get(`http://localhost:8080/marcas/buscar/${id}`, config)
+    const res = await axios.get(
+      `http://localhost:8080/api/marcas/${id}`,
+      config
+    );
 
     if (res.status === 200) {
       dispatch({
@@ -54,10 +55,9 @@ export const get_marca_detail = (id) => async (dispatch) => {
         type: GET_MARCAS_DETAIL_FAIL,
       });
     }
-
   } catch (error) {
     dispatch({
       type: GET_MARCAS_DETAIL_FAIL,
     });
   }
-}
+};
