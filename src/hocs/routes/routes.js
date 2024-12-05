@@ -9,6 +9,9 @@ import Categorias from "../../containers/pages/dashboard/Categorias/Categorias";
 import CategoriasDetalle from "../../containers/pages/dashboard/Categorias/CategoriasDetalle";
 import Subcategorias from "../../containers/pages/dashboard/Subcategorias/Subcategorias";
 import SubcategoriasDetalle from "../../containers/pages/dashboard/Subcategorias/SubcategoriasDetalle";
+import Register from "../../containers/pages/dashboard/Users/Register";
+import Login from "../../containers/pages/dashboard/Users/Login";
+import RecoverPassword from "../../containers/pages/dashboard/Users/RecoverPassword";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +26,9 @@ const AppRoutes = () => {
       <Route path="/categoria/:id" element={<CategoriasDetalle />} />
       <Route path="/subcategorias" element={<Subcategorias />} />
       <Route path="/subcategoria/:id" element={<SubcategoriasDetalle />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/recoverpassword" element={<RecoverPassword />} />
     </Routes>
   );
 };
