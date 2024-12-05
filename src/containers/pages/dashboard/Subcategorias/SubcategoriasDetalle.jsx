@@ -92,6 +92,9 @@ function SubcategoriaDetalle({
     setErrorMessage("");
   };
 
+  // Verifica si categorias está disponible y es un array
+  const categoriasDisponibles = Array.isArray(categorias) ? categorias : [];
+
   return (
     <div>
       {subcategoria ? (
@@ -170,7 +173,7 @@ function SubcategoriaDetalle({
                 <option value="" disabled>
                   Selecciona una categoría
                 </option>
-                {categorias.map((categoria) => (
+                {categoriasDisponibles.map((categoria) => (
                   <option key={categoria.id} value={categoria.id}>
                     {categoria.nombre}
                   </option>
@@ -238,7 +241,4 @@ const mapStateToProps = (state) => ({
   categorias: state.categorias.categorias,
 });
 
-export default connect(mapStateToProps, {
-  get_subcategorias_detail,
-  get_categorias,
-})(SubcategoriaDetalle);
+export default connect(mapStateToProps, { get_subcategorias_detail, get_categorias })(SubcategoriaDetalle);

@@ -41,7 +41,7 @@ export const get_productos_detail = (id) => async (dispatch) => {
 
   try {
     const res = await axios.get(
-      `http://localhost:8080/api/productos/listar/${id}`,
+      `http://localhost:8080/api/productos/buscar/${id}`,
       config
     );
 
