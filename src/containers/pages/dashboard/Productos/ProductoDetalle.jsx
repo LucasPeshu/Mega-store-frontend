@@ -90,10 +90,10 @@ const ProductoDetalle = ({
       });
       setShowModalSuccess(true);
     } catch (err) {
-      setErrorMessage(err.response ? err.response.data.message : "Error desconocido");
+      setErrorMessage("Error al actualizar el producto.");
       console.error(err);
       setShowModalError(true);
-   }
+    }
   };
 
   const closeModal = () => {
@@ -261,6 +261,8 @@ const mapStateToProps = (state) => ({
   marcas: state.marcas.marcas,
 });
 
-export default connect(mapStateToProps, { get_productos_detail,
+export default connect(mapStateToProps, {
+  get_productos_detail,
   get_subcategorias,
-  get_marcas,})(ProductoDetalle);
+  get_marcas,
+})(ProductoDetalle);
