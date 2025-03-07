@@ -4,11 +4,14 @@ import { FaBars, FaTimes } from "react-icons/fa";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     // Verificar si existe la clave 'usuario' en el localStorage
     const user = localStorage.getItem("usuario");
     if (user) {
+      // Si el usuario existe, parsea el valor y lo guarda en el estado `user`
+      setUser(JSON.parse(user)); // Usamos JSON.parse para convertirlo de string a objeto
       setIsAuthenticated(true);
     } else {
       setIsAuthenticated(false);
@@ -23,6 +26,7 @@ const Navbar = () => {
     // Eliminar la clave 'usuario' del localStorage para cerrar sesión
     localStorage.removeItem("usuario");
     setIsAuthenticated(false);
+    setUser(null); // Limpiar el estado de `user` al cerrar sesión
   };
 
   return (
@@ -93,7 +97,16 @@ const Navbar = () => {
               </>
             )}
 
-            {isAuthenticated && (
+          {isAuthenticated && (
+            <>
+              <li>
+                <a
+                  href={`/edit-profile/${user.id}`}  // Interpolamos el id del usuario aquí
+                  className="py-2 px-4 text-gray-900 hover:text-blue-700 transition"
+                >
+                  Editar Perfil
+                </a>
+              </li>
               <li>
                 <button
                   onClick={handleLogout}
@@ -102,7 +115,8 @@ const Navbar = () => {
                   Cerrar sesión
                 </button>
               </li>
-            )}
+            </>
+          )}
           </ul>
         </div>
 

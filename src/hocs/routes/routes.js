@@ -12,6 +12,7 @@ import SubcategoriasDetalle from "../../containers/pages/dashboard/Subcategorias
 import Register from "../../containers/pages/dashboard/Users/Register";
 import Login from "../../containers/pages/dashboard/Users/Login";
 import RecoverPassword from "../../containers/pages/dashboard/Users/RecoverPassword";
+import EditProfile from "../../containers/pages/dashboard/Users/EditProfile";
 
 const AppRoutes = () => {
   return (
@@ -29,6 +30,7 @@ const AppRoutes = () => {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/recoverpassword" element={<RecoverPassword />} />
+      <Route path="/edit-profile/:id" element={<EditProfile />} />
     </Routes>
   );
 };
