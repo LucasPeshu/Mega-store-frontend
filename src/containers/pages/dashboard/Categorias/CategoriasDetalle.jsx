@@ -65,7 +65,7 @@ function CategoriaDetalle({ get_categorias_detail, categoria }) {
   return (
     <div>
       {categoria ? (
-        <div className="p-4 min-h-screen">
+        <div className="p-4 min-h-screen mt-16">
           <div className="flex justify-between">
             <div className="text-4xl font-bold">{categoria.nombre}</div>
             <div className="flex gap-2">

@@ -13,6 +13,15 @@ const Register = () => {
 
   const [errors, setErrors] = useState({});
 
+  const placeholders = {
+    nombre: "Nombre",
+    apellido: "Apellido",
+    telefono: "Teléfono",
+    email: "Correo electrónico",
+    contrasena: "Contraseña",
+    contrasenaRepetida: "Confirmar contraseña",
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -94,7 +103,7 @@ const Register = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
-        className="bg-white p-8 rounded shadow-md w-full max-w-md"
+        className="bg-white p-8 mt-24 rounded-2xl shadow-md w-full max-w-md"
         onSubmit={handleSubmit}
       >
         <h2 className="text-2xl font-bold mb-4 text-center">
@@ -102,12 +111,6 @@ const Register = () => {
         </h2>
         {Object.keys(formData).map((key) => (
           <div key={key} className="mb-4">
-            <label
-              htmlFor={key}
-              className="block text-gray-700 font-bold mb-2 capitalize"
-            >
-              {key === "contrasenaRepetida" ? "Confirmar Contraseña" : key}
-            </label>
             <input
               type={
                 key.includes("contrasena")
@@ -118,9 +121,10 @@ const Register = () => {
               }
               id={key}
               name={key}
+              placeholder={placeholders[key]}
               value={formData[key]}
               onChange={handleChange}
-              className={`w-full p-2 border rounded ${
+              className={`w-full p-2 border rounded-2xl ${
                 errors[key] ? "border-red-500" : "border-gray-300"
               }`}
             />
@@ -131,7 +135,7 @@ const Register = () => {
         ))}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+          className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl hover:bg-blue-700"
         >
           Registrarse
         </button>

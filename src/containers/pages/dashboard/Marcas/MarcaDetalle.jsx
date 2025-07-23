@@ -64,7 +64,7 @@ function MarcaDetalle({ get_marca_detail, marca }) {
   return (
     <div>
       {marca ? (
-        <div className="p-4 min-h-screen">
+        <div className="p-4 min-h-screen mt-16">
           <div className="flex justify-between">
             <div className="text-4xl font-bold">{marca.nombre}</div>
             <div className="flex gap-2">

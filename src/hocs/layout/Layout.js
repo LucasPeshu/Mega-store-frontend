@@ -1,13 +1,11 @@
-import React from 'react';
-import Navbar from '../../components/navigation/navbar';
+import React from "react";
+import Navbar from "../../components/navigation/navbar";
 
 const Layout = ({ children }) => {
   return (
     <div>
       <Navbar />
-      <main className="container mx-auto p-4">
-        {children}
-      </main>
+      <main className="container mx-auto">{children}</main>
     </div>
   );
 };

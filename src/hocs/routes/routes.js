@@ -19,14 +19,17 @@ const AppRoutes = () => {
     <Routes>
       <Route path="*" element={<Error404 />} />
       <Route path="/" element={<Home />} />
-      <Route path="/marcas" element={<Marcas />} />
-      <Route path="/marcas/:id" element={<MarcaDetalle />} />
-      <Route path="/productos" element={<Productos />} />
-      <Route path="/productos/:id" element={<ProductoDetalle />} />
-      <Route path="/categorias" element={<Categorias />} />
-      <Route path="/categoria/:id" element={<CategoriasDetalle />} />
-      <Route path="/subcategorias" element={<Subcategorias />} />
-      <Route path="/subcategoria/:id" element={<SubcategoriasDetalle />} />
+      <Route path="/admin/marcas" element={<Marcas />} />
+      <Route path="/admin/marcas/:id" element={<MarcaDetalle />} />
+      <Route path="/admin/productos" element={<Productos />} />
+      <Route path="/admin/productos/:id" element={<ProductoDetalle />} />
+      <Route path="/admin/categorias" element={<Categorias />} />
+      <Route path="/admin/categoria/:id" element={<CategoriasDetalle />} />
+      <Route path="/admin/subcategorias" element={<Subcategorias />} />
+      <Route
+        path="/admin/subcategoria/:id"
+        element={<SubcategoriasDetalle />}
+      />
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/recoverpassword" element={<RecoverPassword />} />

@@ -98,7 +98,7 @@ function SubcategoriaDetalle({
   return (
     <div>
       {subcategoria ? (
-        <div className="p-4 min-h-screen">
+        <div className="p-4 min-h-screen mt-16">
           <div className="flex justify-between">
             <div className="text-4xl font-bold">{subcategoria.nombre}</div>
             <div className="flex gap-2">
@@ -241,4 +241,7 @@ const mapStateToProps = (state) => ({
   categorias: state.categorias.categorias,
 });
 
-export default connect(mapStateToProps, { get_subcategorias_detail, get_categorias })(SubcategoriaDetalle);
+export default connect(mapStateToProps, {
+  get_subcategorias_detail,
+  get_categorias,
+})(SubcategoriaDetalle);

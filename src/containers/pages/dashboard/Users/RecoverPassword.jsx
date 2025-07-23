@@ -31,7 +31,7 @@ const RecoverPassword = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
-        className="bg-white p-8 rounded shadow-md w-full max-w-md"
+        className="bg-white p-8 rounded-2xl shadow-md w-full max-w-md"
         onSubmit={handleSubmit}
       >
         <h2 className="text-2xl font-bold mb-4 text-center">
@@ -39,22 +39,20 @@ const RecoverPassword = () => {
         </h2>
 
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-            Email
-          </label>
           <input
             type="email"
             id="email"
             name="email"
             value={email}
             onChange={handleChange}
-            className="w-full p-2 border rounded border-gray-300"
+            placeholder="Ingrese su correo electrónico"
+            className="w-full p-2 border rounded-2xl border-gray-300"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700"
+          className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-2xl hover:bg-blue-700"
         >
           Restablecer Contraseña
         </button>

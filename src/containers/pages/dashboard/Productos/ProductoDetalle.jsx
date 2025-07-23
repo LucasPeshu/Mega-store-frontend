@@ -25,6 +25,7 @@ const ProductoDetalle = ({
   const [stock, setStock] = useState("");
   const [umbralBajoStock, setUmbralBajoStock] = useState("");
   const [marca, setMarca] = useState("");
+  const [urlImagen, setUrlImagen] = useState("");
   const [subcategoria, setSubcategoria] = useState("");
   const [showModalSuccess, setShowModalSuccess] = useState(false);
   const [showModalError, setShowModalError] = useState(false);
@@ -47,6 +48,7 @@ const ProductoDetalle = ({
       setUmbralBajoStock(producto.umbralBajoStock || "");
       setMarca(producto.marca || "");
       setSubcategoria(producto.subcategoria || "");
+      setUrlImagen(producto.urlImagen || "");
     }
   }, [producto]);
 
@@ -87,6 +89,7 @@ const ProductoDetalle = ({
         umbralBajoStock,
         marca,
         subcategoria,
+        urlImagen,
       });
       setShowModalSuccess(true);
     } catch (err) {
@@ -103,7 +106,7 @@ const ProductoDetalle = ({
   };
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen p-4 mt-16">
       <h1 className="text-4xl font-bold mb-4">Detalles del Producto</h1>
       <form onSubmit={onSubmitUpdate} className="space-y-4">
         <div>
@@ -155,8 +158,31 @@ const ProductoDetalle = ({
             onChange={(e) => setPrecioUnitario(e.target.value)}
             className="w-full p-2 border rounded"
             required
+            min="0" // 🔒 Esto evita valores negativos
           />
         </div>
+
+        <div>
+          <label className="block text-sm font-medium">URL de la Imagen</label>
+          <input
+            type="url"
+            value={urlImagen}
+            onChange={(e) => setUrlImagen(e.target.value)}
+            className="w-full p-2 border rounded"
+            placeholder="https://..."
+          />
+        </div>
+
+        {/* Vista previa de la imagen */}
+        {urlImagen && (
+          <div className="my-4">
+            <img
+              src={urlImagen}
+              alt="Vista previa"
+              className="max-w-xs max-h-64 border rounded"
+            />
+          </div>
+        )}
 
         <div>
           <label className="block text-sm font-medium">Stock</label>
@@ -166,6 +192,7 @@ const ProductoDetalle = ({
             onChange={(e) => setStock(e.target.value)}
             className="w-full p-2 border rounded"
             required
+            min="0" // ⛔ No permite valores negativos
           />
         </div>
 
@@ -179,6 +206,7 @@ const ProductoDetalle = ({
             onChange={(e) => setUmbralBajoStock(e.target.value)}
             className="w-full p-2 border rounded"
             required
+            min="0" // ⛔ No permite valores negativos
           />
         </div>
 

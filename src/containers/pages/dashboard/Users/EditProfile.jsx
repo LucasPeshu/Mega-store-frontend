@@ -34,13 +34,16 @@ const EditProfile = ({ get_usuarios_detail, usuario }) => {
   const onSubmitUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://localhost:8080/api/usuarios/actualizar_datos/${id}`, {
-        nombre,
-        apellido,
-        telefono,
-        email,
-        contrasena,
-      });
+      await axios.patch(
+        `http://localhost:8080/api/usuarios/actualizar_datos/${id}`,
+        {
+          nombre,
+          apellido,
+          telefono,
+          email,
+          contrasena,
+        }
+      );
       setShowModalSuccess(true);
     } catch (err) {
       setErrorMessage("Error al actualizar el usuario.");
@@ -56,16 +59,20 @@ const EditProfile = ({ get_usuarios_detail, usuario }) => {
   };
 
   return (
-    <div className="min-h-screen p-4">
-      <h1 className="text-4xl font-bold mb-4">Editar Perfil</h1>
-      <form onSubmit={onSubmitUpdate} className="space-y-4">
+    <div className="flex justify-center items-center min-h-screen mt-12">
+      <form
+        onSubmit={onSubmitUpdate}
+        className="space-y-4 bg-white p-8 rounded-2xl shadow-md w-full max-w-md"
+      >
+        <h1 className="text-4xl text-center font-bold mb-4">Editar Perfil</h1>
         <div>
           <label className="block text-sm font-medium">Nombre</label>
           <input
             type="text"
+            placeholder="Nombre"
             value={nombre}
             onChange={(e) => setNombre(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border rounded-2xl"
             required
           />
         </div>
@@ -74,9 +81,10 @@ const EditProfile = ({ get_usuarios_detail, usuario }) => {
           <label className="block text-sm font-medium">Apellido</label>
           <input
             type="text"
+            placeholder="Apellido"
             value={apellido}
             onChange={(e) => setApellido(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border rounded-2xl"
             required
           />
         </div>
@@ -85,9 +93,10 @@ const EditProfile = ({ get_usuarios_detail, usuario }) => {
           <label className="block text-sm font-medium">Email</label>
           <input
             type="email"
+            placeholder="Correo electrónico"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border rounded-2xl"
             required
           />
         </div>
@@ -96,9 +105,10 @@ const EditProfile = ({ get_usuarios_detail, usuario }) => {
           <label className="block text-sm font-medium">Teléfono</label>
           <input
             type="text"
+            placeholder="Teléfono"
             value={telefono}
             onChange={(e) => setTelefono(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border rounded-2xl"
           />
         </div>
 
@@ -106,15 +116,16 @@ const EditProfile = ({ get_usuarios_detail, usuario }) => {
           <label className="block text-sm font-medium">Contraseña</label>
           <input
             type="password"
+            placeholder="Contraseña"
             value={contrasena}
             onChange={(e) => setContrasena(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-3 border rounded-2xl"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full py-2 bg-blue-600 text-white rounded"
+          className="w-full py-2 bg-blue-600 text-white rounded-2xl"
         >
           Actualizar Perfil
         </button>
