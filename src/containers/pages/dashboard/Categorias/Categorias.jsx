@@ -52,7 +52,7 @@ const Categorias = ({ get_categorias, categorias }) => {
   };
 
   return (
-    <div className="p-4 min-h-screen mt-16">
+    <div className="container mx-auto px-6 sm:px-4 lg:px-44 py-12 min-h-screen mt-16">
       <div className="flex justify-between mb-4">
         <h1 className="font-bold text-4xl">Categorías:</h1>
         <div className="flex gap-2">

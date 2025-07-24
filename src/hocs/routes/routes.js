@@ -13,12 +13,16 @@ import Register from "../../containers/pages/dashboard/Users/Register";
 import Login from "../../containers/pages/dashboard/Users/Login";
 import RecoverPassword from "../../containers/pages/dashboard/Users/RecoverPassword";
 import EditProfile from "../../containers/pages/dashboard/Users/EditProfile";
+import Products from "../../containers/pages/Products";
+import ProductDetail from "../../containers/pages/ProductDetail";
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route path="*" element={<Error404 />} />
       <Route path="/" element={<Home />} />
+      <Route path="/productos" element={<Products />} />
+      <Route path="/productos/:id" element={<ProductDetail />} />
       <Route path="/admin/marcas" element={<Marcas />} />
       <Route path="/admin/marcas/:id" element={<MarcaDetalle />} />
       <Route path="/admin/productos" element={<Productos />} />

@@ -106,7 +106,7 @@ const ProductoDetalle = ({
   };
 
   return (
-    <div className="min-h-screen p-4 mt-16">
+    <div className="min-h-screen container mx-auto px-6 sm:px-4 lg:px-48 py-12 mt-16">
       <h1 className="text-4xl font-bold mb-4">Detalles del Producto</h1>
       <form onSubmit={onSubmitUpdate} className="space-y-4">
         <div>
