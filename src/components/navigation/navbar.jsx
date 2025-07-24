@@ -2,12 +2,28 @@ import React, { useState, useEffect } from "react";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
+import { FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const carritoGuardado = localStorage.getItem("carrito");
+    if (carritoGuardado) {
+      try {
+        const items = JSON.parse(carritoGuardado);
+        setCartCount(items.length); // cantidad de productos distintos
+      } catch (e) {
+        setCartCount(0);
+      }
+    } else {
+      setCartCount(0);
+    }
+  }, []);
 
   useEffect(() => {
     // Verificar si existe la clave 'usuario' en el localStorage
@@ -55,12 +71,29 @@ const Navbar = () => {
           >
             Productos
           </a>
-          <a
-            href="/carrito"
-            className="text-gray-700 hover:text-blue-600 transition-colors"
-          >
-            Carrito
-          </a>
+          {/* Contenedor relativo para posicionar el círculo */}
+          <div className="relative inline-flex items-center text-gray-700 hover:text-blue-600 transition-colors cursor-pointer">
+            <a href="/carrito" className="flex items-center">
+              <span>Carrito</span>
+              {/* Icono a la derecha de la palabra */}
+              <div className="relative ml-1">
+                <FiShoppingCart className="text-2xl" />
+                {/* Círculo arriba del icono */}
+                {cartCount > 0 && (
+                  <span
+                    className="absolute -top-2 -right-2 flex items-center justify-center
+                     bg-red-600 text-white text-xs font-bold rounded-full
+                     w-5 h-5 shadow-lg"
+                    title={`${cartCount} ${
+                      cartCount === 1 ? "producto" : "productos"
+                    } en el carrito`}
+                  >
+                    {cartCount}
+                  </span>
+                )}
+              </div>
+            </a>
+          </div>
         </div>
 
         {/* Menú principal */}

@@ -15,6 +15,7 @@ import RecoverPassword from "../../containers/pages/dashboard/Users/RecoverPassw
 import EditProfile from "../../containers/pages/dashboard/Users/EditProfile";
 import Products from "../../containers/pages/Products";
 import ProductDetail from "../../containers/pages/ProductDetail";
+import { Cart } from "../../containers/Cart";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/productos" element={<Products />} />
       <Route path="/productos/:id" element={<ProductDetail />} />
+      <Route path="/Carrito" element={<Cart />} />
       <Route path="/admin/marcas" element={<Marcas />} />
       <Route path="/admin/marcas/:id" element={<MarcaDetalle />} />
       <Route path="/admin/productos" element={<Productos />} />

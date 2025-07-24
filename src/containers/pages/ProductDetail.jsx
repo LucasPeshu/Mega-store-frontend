@@ -28,9 +28,7 @@ const ProductDetail = ({
   const [marca, setMarca] = useState("");
   const [urlImagen, setUrlImagen] = useState("");
   const [subcategoria, setSubcategoria] = useState("");
-  const [showModalSuccess, setShowModalSuccess] = useState(false);
-  const [showModalError, setShowModalError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [cantidad, setCantidad] = useState(1);
 
   useEffect(() => {
     get_productos_detail(id);
@@ -65,6 +63,47 @@ const ProductDetail = ({
   const colorActual = coloresDisponibles.find(
     (c) => c.nombre.toLowerCase() === color?.toLowerCase()
   );
+
+  const handleCantidadChange = (e) => {
+    const value = parseInt(e.target.value);
+    if (value >= 1 && value <= stock) {
+      setCantidad(value);
+    }
+  };
+
+  const agregarAlCarrito = () => {
+    const carritoActual = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    const productoExistente = carritoActual.find(
+      (item) => item.id === producto.id
+    );
+
+    if (productoExistente) {
+      const nuevaCantidad = productoExistente.cantidad + cantidad;
+      if (nuevaCantidad <= stock) {
+        productoExistente.cantidad = nuevaCantidad;
+      } else {
+        productoExistente.cantidad = stock; // máximo permitido
+      }
+    } else {
+      carritoActual.push({
+        id: producto.id,
+        nombre,
+        descripcion,
+        tamano,
+        color,
+        precioUnitario,
+        stock,
+        marca,
+        subcategoria,
+        urlImagen,
+        cantidad,
+      });
+    }
+
+    localStorage.setItem("carrito", JSON.stringify(carritoActual));
+    alert("Producto agregado al carrito");
+  };
 
   return (
     <div className="container mx-auto px-6 sm:px-4 lg:px-48 min-h-screen mt-16 py-10">
@@ -147,6 +186,26 @@ const ProductDetail = ({
           ) : (
             <div className="text-sm text-red-500">Color no disponible</div>
           )}
+          <div className="mt-6">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Cantidad
+            </label>
+            <input
+              type="number"
+              value={cantidad}
+              onChange={handleCantidadChange}
+              min={1}
+              max={stock}
+              className="w-24 border border-gray-300 rounded px-2 py-1"
+            />
+          </div>
+
+          <button
+            onClick={agregarAlCarrito}
+            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+          >
+            Agregar al carrito
+          </button>
         </div>
       </div>
     </div>
