@@ -215,7 +215,7 @@ export function Cart() {
                     Proceder al pago
                   </button>
                   <button className="w-full border border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-50 transition-colors">
-                    Continuar comprando
+                    <a href="/productos">Continuar comprando</a>
                   </button>
                 </div>
 

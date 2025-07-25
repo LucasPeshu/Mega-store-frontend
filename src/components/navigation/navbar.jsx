@@ -172,6 +172,14 @@ const Navbar = () => {
                       </li>
                       <li>
                         <a
+                          href="/admin/estadisticas"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-800"
+                        >
+                          Estadísticas
+                        </a>
+                      </li>
+                      <li>
+                        <a
                           href={`/edit-profile/${user?.id}`}
                           className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-800"
                         >

@@ -38,7 +38,13 @@ const ProductoDetalle = ({
   }, [get_productos_detail, get_subcategorias, get_marcas, id]);
 
   useEffect(() => {
-    if (producto) {
+    if (
+      producto &&
+      Array.isArray(marcas) &&
+      marcas.length > 0 &&
+      Array.isArray(subcategorias) &&
+      subcategorias.length > 0
+    ) {
       setNombre(producto.nombre);
       setDescripcion(producto.descripcion);
       setTamano(producto.tamano);
@@ -46,32 +52,28 @@ const ProductoDetalle = ({
       setPrecioUnitario(producto.precioUnitario);
       setStock(producto.stock);
       setUmbralBajoStock(producto.umbralBajoStock || "");
-      setMarca(producto.marca || "");
-      setSubcategoria(producto.subcategoria || "");
+      setMarca(producto.marca?.id || "");
+      setSubcategoria(producto.subcategoria?.id || "");
       setUrlImagen(producto.urlImagen || "");
     }
-  }, [producto]);
+  }, [producto, marcas, subcategorias]);
 
   const onSubmitDelete = async () => {
     try {
-      await axios.delete(
-        `http://localhost:8080/api/subcategorias/eliminar/${id}`
-      );
+      await axios.delete(`http://localhost:8080/api/productos/eliminar/${id}`);
       window.location.reload(); // Recarga la página para reflejar el cambio
     } catch (err) {
-      setErrorMessage("Error al eliminar la subcategoría.");
+      setErrorMessage("Error al eliminar el producto.");
       setShowModalError(true);
     }
   };
 
   const onSubmitReactive = async () => {
     try {
-      await axios.put(
-        `http://localhost:8080/api/subcategorias/reactivar/${id}`
-      );
+      await axios.put(`http://localhost:8080/api/productos/reactivar/${id}`);
       window.location.reload(); // Recarga la página para reflejar el cambio
     } catch (err) {
-      setErrorMessage("Error al reactivar la subcategoría.");
+      setErrorMessage("Error al reactivar el producto.");
       setShowModalError(true);
     }
   };
@@ -107,7 +109,29 @@ const ProductoDetalle = ({
 
   return (
     <div className="min-h-screen container mx-auto px-6 sm:px-4 lg:px-48 py-12 mt-16">
-      <h1 className="text-4xl font-bold mb-4">Detalles del Producto</h1>
+      <div className="flex justify-between">
+        <h1 className="text-4xl font-bold mb-4">Detalles del Producto</h1>
+        {producto && (
+          <div>
+            {producto.estaActivo ? (
+              <button
+                onClick={onSubmitDelete}
+                className="py-2 px-6 bg-red-600 text-white rounded hover:bg-red-700 transition"
+              >
+                Eliminar Producto
+              </button>
+            ) : (
+              <button
+                onClick={onSubmitReactive}
+                className="py-2 px-6 bg-green-600 text-white rounded hover:bg-green-700 transition"
+              >
+                Reactivar Producto
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
       <form onSubmit={onSubmitUpdate} className="space-y-4">
         <div>
           <label className="block text-sm font-medium">Nombre</label>
